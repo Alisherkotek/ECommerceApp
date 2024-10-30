@@ -59,7 +59,7 @@ public class GenericRepository<T>(StoreContext context) : IGenericRepository<T> 
 
     public bool Exists(int id)
     {
-        return context.Set<T>().Any(x => x.Id == id); 
+        return context.Set<T>().Any(x => x.Id == id);
     }
 
     public async Task<int> CountAsync(ISpecification<T> spec)
@@ -73,7 +73,7 @@ public class GenericRepository<T>(StoreContext context) : IGenericRepository<T> 
     {
         return SpecificationEvaluator<T>.GetQuery(context.Set<T>().AsQueryable(), spec);
     }
-    
+
     private IQueryable<TResult> ApplySpecification<TResult>(ISpecification<T, TResult> spec)
     {
         return SpecificationEvaluator<T>.GetQuery<T, TResult>(context.Set<T>().AsQueryable(), spec);
