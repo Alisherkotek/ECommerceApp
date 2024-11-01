@@ -4,6 +4,15 @@ using API.Errors;
 
 namespace API.Middleware;
 
+
+public class RequestHandlingMiddleware(IHostEnvironment env, RequestDelegate next, ILogger<RequestHandlingMiddleware> logger)
+{
+    public async Task InvokeAsync(HttpContext context)
+    {
+        logger.LogInformation(JsonSerializer.Serialize(context.Request));
+        await next(context);
+    }
+}
 public class ExceptionMiddleware(IHostEnvironment env, RequestDelegate next)
 {
     public async Task InvokeAsync(HttpContext context)

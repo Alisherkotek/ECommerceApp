@@ -16,7 +16,7 @@ builder.Services.AddCors();
 
 
 var app = builder.Build();
-
+app.UseMiddleware<RequestHandlingMiddleware>();
 app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod()
