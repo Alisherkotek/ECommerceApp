@@ -4,15 +4,6 @@ using API.Errors;
 
 namespace API.Middleware;
 
-
-public class RequestHandlingMiddleware(IHostEnvironment env, RequestDelegate next, ILogger<RequestHandlingMiddleware> logger)
-{
-    public async Task InvokeAsync(HttpContext context)
-    {
-        logger.LogInformation(JsonSerializer.Serialize(context.Request));
-        await next(context);
-    }
-}
 public class ExceptionMiddleware(IHostEnvironment env, RequestDelegate next)
 {
     public async Task InvokeAsync(HttpContext context)
@@ -38,8 +29,8 @@ public class ExceptionMiddleware(IHostEnvironment env, RequestDelegate next)
 
         var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
         
-        var json = JsonSerializer.Serialize(response, options);
+        //var json = JsonSerializer.Serialize(response, options);
         
-        return context.Response.WriteAsync(json);
+        return context.Response.WriteAsync("json");
     }
 }
