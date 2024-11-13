@@ -6,7 +6,7 @@ namespace API.Middleware;
 
 public class ExceptionMiddleware(IHostEnvironment env, RequestDelegate next)
 {
-    public async Task InvokeAsync(HttpContext context)
+    public async Task InvokeAsync(HttpContext context, ILogger<ExceptionMiddleware> logger)
     {
         try
         {
@@ -14,6 +14,7 @@ public class ExceptionMiddleware(IHostEnvironment env, RequestDelegate next)
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, ex.Message);
             await HandleExceptionAsync(context, ex, env);
         }
     }
