@@ -5,14 +5,23 @@ using Stripe;
 
 namespace Infrastructure.Services;
 
-public class PaymentService(IConfiguration config, ICartService cartService,
-    IUnitOfWork unit) : IPaymentService
+public class PaymentService : IPaymentService
 {
-    public async Task<ShoppingCart?> CreateOrUpdatePaymentIntent(string cartId)
+    private readonly ICartService _cartService;
+    private readonly IUnitOfWork _unit;
+
+    public PaymentService(IConfiguration config, ICartService cartService,
+        IUnitOfWork unit)
     {
+        _cartService = cartService;
+        _unit = unit;
         StripeConfiguration.ApiKey = config["StripeSettings:SecretKey"];
 
-        var cart = await cartService.GetCartAsync(cartId)
+    }
+    public async Task<ShoppingCart?> CreateOrUpdatePaymentIntent(string cartId)
+    {
+
+        var cart = await _cartService.GetCartAsync(cartId)
             ?? throw new Exception("Cart unavailable");
 
         var shippingPrice = await GetShippingPriceAsync(cart) ?? 0;
@@ -30,9 +39,21 @@ public class PaymentService(IConfiguration config, ICartService cartService,
 
         await CreateUpdatePaymentIntentAsync(cart, total);
 
-        await cartService.SetCartAsync(cart);
+        await _cartService.SetCartAsync(cart);
 
         return cart;
+    }
+
+    public async Task<string?> RefundPayment(string paymentIntentId)
+    {
+        var refundOptions = new RefundCreateOptions()
+        {
+            PaymentIntent = paymentIntentId,
+        };
+        
+        var refundService = new RefundService();
+        var result = await refundService.CreateAsync(refundOptions);
+        return result.Status;
     }
 
     private async Task CreateUpdatePaymentIntentAsync(ShoppingCart cart, long total)
@@ -91,7 +112,7 @@ public class PaymentService(IConfiguration config, ICartService cartService,
     {
         foreach (var item in cart.Items)
         {
-            var productItem = await unit.Repository<Core.Entities.Product>()
+            var productItem = await _unit.Repository<Core.Entities.Product>()
                 .GetByIdAsync(item.ProductId) ?? throw new Exception("Problem getting product in cart");
 
             if (item.Price != productItem.Price)
@@ -105,7 +126,7 @@ public class PaymentService(IConfiguration config, ICartService cartService,
     {
         if (cart.DeliveryMethodId.HasValue)
         {
-            var deliveryMethod = await unit.Repository<DeliveryMethod>()
+            var deliveryMethod = await _unit.Repository<DeliveryMethod>()
                 .GetByIdAsync((int)cart.DeliveryMethodId)
                     ?? throw new Exception("Problem with delivery method");
 
