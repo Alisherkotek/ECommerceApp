@@ -158,7 +158,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     const cart = this.cartService.cart();
     const shippingAddress = await this.getAddressFromStripeAddress() as ShippingAddress;
     const card = this.confirmationToken?.payment_method_preview.card;
-
     if (!cart?.id || !cart.deliveryMethodId || !card || !shippingAddress) {
       throw new Error('Problem creating order');
     }
@@ -172,9 +171,11 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         expYear: card.exp_year
       },
       deliveryMethodId: cart.deliveryMethodId,
-      shippingAddress
+      shippingAddress,
+      discount: this.cartService.totals()?.discount
     }
   }
+
 
   private async getAddressFromStripeAddress(): Promise<Address | ShippingAddress | null> {
     const result = await this.addressElement?.getValue();
