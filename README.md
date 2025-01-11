@@ -1,57 +1,61 @@
-E-Commerce Web Application
-This is a fully-featured e-commerce web application developed using .NET for the backend and Angular for the frontend. The application implements modern web development practices and includes a range of features to provide a robust, secure, and user-friendly shopping experience.
 
-Features
-Authentication & Authorization
-Role-based access control to manage users and admin functionality.
 
-Shopping Cart
-Add, update, and remove items from the cart with real-time updates.
+# E-Commerce Web Application
 
-Payment Integration
-Secure online transactions using Stripe API.
+This is a fully-featured e-commerce web application developed using **.NET** for the backend and **Angular** for the frontend. The application implements modern web development practices and includes a range of features to provide a robust, secure, and user-friendly shopping experience.
 
-Sorting, Filtering, and Pagination
-Intuitive product navigation and browsing for an enhanced user experience.
+---
 
-Error Handling
-Centralized error handling through middleware for robust API responses.
+## Features
 
-Real-Time Notifications
-Hub-based notifications powered by SignalR.
+- **Authentication & Authorization**  
+  Role-based access control to manage users and admin functionality.
 
-Single Page Application (SPA)
-Smooth and seamless user interactions with Angular.
+- **Shopping Cart**  
+  Add, update, and remove items from the cart with real-time updates.
 
-Caching
-Improved performance and reduced database load using Redis.
+- **Payment Integration**  
+  Secure online transactions using the **Stripe API**.
 
-Database
-Data persistence and management using MSSQL.
+- **Sorting, Filtering, and Pagination**  
+  Intuitive product navigation and browsing for an enhanced user experience.
 
-CI/CD Pipeline
-Automated deployment workflows using GitHub Actions.
+- **Error Handling**  
+  Centralized error handling through middleware for robust API responses.
 
-Technologies Used
+- **Real-Time Notifications**  
+  Hub-based notifications powered by **SignalR**.
 
-Backend
-ASP.NET Core: RESTful API development.
+- **Single Page Application (SPA)**  
+  Smooth and seamless user interactions with **Angular**.
 
-Entity Framework Core: Database interaction.
+- **Caching**  
+  Improved performance and reduced database load using **Redis**.
 
-Redis: Caching for optimized performance.
+- **Database**  
+  Data persistence and management using **MSSQL**.
 
-SignalR: Real-time communication.
+- **CI/CD Pipeline**  
+  Automated deployment workflows using **GitHub Actions**.
 
-Frontend
-Angular: Dynamic and responsive user interfaces.
+---
 
-Database
-MSSQL: Relational database for data storage.
+## Technologies Used
 
-Payment Integration
-Stripe: Secure payment processing.
+### Backend
+- **ASP.NET Core**: RESTful API development.
+- **Entity Framework Core**: Database interaction.
+- **Redis**: Caching for optimized performance.
+- **SignalR**: Real-time communication.
 
-CI/CD
-GitHub Actions: Automated build and deployment.
+### Frontend
+- **Angular**: Dynamic and responsive user interfaces.
 
+### Database
+- **MSSQL**: Relational database for data storage.
+
+### Payment Integration
+- **Stripe**: Secure payment processing.
+
+### CI/CD
+- **GitHub Actions**: Automated build and deployment.
