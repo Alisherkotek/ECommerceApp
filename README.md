@@ -36,8 +36,11 @@ Technologies Used
 
 Backend
 ASP.NET Core: RESTful API development.
+
 Entity Framework Core: Database interaction.
+
 Redis: Caching for optimized performance.
+
 SignalR: Real-time communication.
 
 Frontend
